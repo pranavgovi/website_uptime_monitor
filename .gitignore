@@ -1,0 +1,9 @@
+/node_modules
+/vendor
+backend/.env
+backend/storage/*.key
+backend/.phpunit.result.cache
+backend/public/js
+backend/public/css
+backend/public/assets
+backend/public/build
