@@ -24,6 +24,6 @@ class Website extends Model
 
     public function client(): BelongsTo
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class); //belongTo relationship is returned
     }
 }

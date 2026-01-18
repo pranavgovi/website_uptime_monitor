@@ -13,10 +13,10 @@ class Client extends Model
 
     protected $fillable = [
         'email',
-    ];
-
+    ]; //fillable is the attributes that are mass assignable by the user
+//This pattern helps to prevent users from mass assigning attributes that are not allowed
     public function websites(): HasMany
     {
-        return $this->hasMany(Website::class);
+        return $this->hasMany(Website::class); //relationship object is returned
     }
 }
