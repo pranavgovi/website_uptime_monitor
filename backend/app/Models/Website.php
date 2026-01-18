@@ -20,7 +20,7 @@ class Website extends Model
     protected $casts = [
         'is_up' => 'boolean',
         'last_checked_at' => 'datetime',
-    ];
+    ]; //casts are used to convert the data type of the attribute (from "0" or "1) to boolean
 
     public function client(): BelongsTo
     {
