@@ -3,15 +3,11 @@
 namespace App\Notifications;
 
 use App\Models\Website;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WebsiteDownNotification extends Notification implements ShouldQueue
+class WebsiteDownNotification extends Notification
 {
-    use Queueable;
-
     public function __construct(
         public Website $website
     ) {
@@ -28,7 +24,8 @@ class WebsiteDownNotification extends Notification implements ShouldQueue
         
         return (new MailMessage)
             ->subject($subject)
-            ->line($subject);
+            ->line($subject)
+            ->from('do-not-reply@example.com', config('mail.from.name'));
     }
 
     public function toArray(object $notifiable): array

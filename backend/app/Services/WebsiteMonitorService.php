@@ -28,10 +28,17 @@ class WebsiteMonitorService
             if (!$isUp && $previousStatus === true) {
                 $website->client->notify(new WebsiteDownNotification($website));
                 
-                Log::info("Website down alert sent", [
+                Log::info("Website down alert sent - UP to DOWN transition", [
                     'website_id' => $website->id,
                     'url' => $website->url,
                     'client_email' => $website->client->email,
+                    'previous_status' => 'up',
+                    'current_status' => 'down',
+                ]);
+            } elseif (!$isUp && $previousStatus === false) {
+                Log::debug("Website still down - no email sent (avoiding spam)", [
+                    'website_id' => $website->id,
+                    'url' => $website->url,
                 ]);
             }
 
@@ -44,11 +51,19 @@ class WebsiteMonitorService
             if ($previousStatus === true) {
                 $website->client->notify(new WebsiteDownNotification($website));
                 
-                Log::warning("Website monitoring error", [
+                Log::warning("Website monitoring error - UP to DOWN transition", [
                     'website_id' => $website->id,
                     'url' => $website->url,
                     'error' => $e->getMessage(),
                     'client_email' => $website->client->email,
+                    'previous_status' => 'up',
+                    'current_status' => 'down',
+                ]);
+            } elseif ($previousStatus === false) {
+                Log::debug("Website still down (error) - no email sent (avoiding spam)", [
+                    'website_id' => $website->id,
+                    'url' => $website->url,
+                    'error' => $e->getMessage(),
                 ]);
             }
         }
