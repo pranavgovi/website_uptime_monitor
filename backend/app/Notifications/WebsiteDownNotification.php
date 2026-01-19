@@ -25,7 +25,8 @@ class WebsiteDownNotification extends Notification
         return (new MailMessage)
             ->subject($subject)
             ->line($subject)
-            ->from('do-not-reply@example.com', config('mail.from.name'));
+            ->from('do-not-reply@example.com', config('mail.from.name'))
+            ->replyTo('do-not-reply@example.com', config('mail.from.name'));
     }
 
     public function toArray(object $notifiable): array
